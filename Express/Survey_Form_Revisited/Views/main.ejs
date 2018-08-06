@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sockets</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+
+    $(document).ready(function (){
+        var socket = io.connect(); 
+         // submit data to the server using emit
+        $('#survey_form').submit(function(e) {
+            e.preventDefault();
+            socket.emit("posting_form", {
+                name: $('#name').val(),
+                location: $('#location').val(),
+                language: $('#language').val(),
+                comment: $('#comment').val()
+            });
+        });  
+        //display the emit response of the server called "updated_message" and "random_number"
+        socket.on('updated_message', function (data){
+			$('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+		});
+		socket.on('random_number', function (data){
+			$('#random_number').html("Your lucky number is: " + JSON.stringify(data.response));
+		});
+    });
+    </script>
+</head>
+<body>
+    <div id="message"></div>
+    <div id="random_number"></div>
+    <form id = "survey_form" action="">
+        Your Name: <input type="text" name="name" id='name'><br>
+        Dojo Location: <input type="text" name="location" id='location'><br>
+        Favorite Language: <input type="text" name="language" id='language'><br>
+        Comment (optional): <br>
+        <textarea name="comment" cols="30" rows="10" id='comment'></textarea> <br>
+        <input type="submit">
+    </form>
+
+</body>
+</html>
