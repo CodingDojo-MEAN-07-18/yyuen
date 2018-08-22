@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Index page</h1>
+    <a href="/new">Create new cat</a>
+    <% for (const cat of cats){ %>
+        <p>
+            Name: <a href="/<%= cat._id%>"><%= cat.name %></a>
+            <a href="/edit/<%= cat._id%>"><button>Edit</button></a>
+            <form action="/delete/<%= cat._id %>" method="post">
+                <input type="submit", value="Delete">
+            </form>
+        </p>
+    <%} %>
+</body>
+</html>

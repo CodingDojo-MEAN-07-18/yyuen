@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+</head>
+<body>
+    <h3>Please update <%= cat.name %> info:</h3>
+    <form action="/<%= cat._id %>" method="POST">
+        <label for="Name">Name:</label> 
+        <input type="text" name="name"> <br>
+        <label for="Color">Color:</label>
+        <input type="text" name="color"><br>
+        <label for="Age">Age:</label>
+        <input type="text" name="age"><br>
+        <input type="submit" value"Submit to update">
+    </form>
+</body>
+</html>
