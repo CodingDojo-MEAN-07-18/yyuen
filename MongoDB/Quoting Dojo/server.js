@@ -1,20 +1,19 @@
 var express = require('express');
 var app = express();
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 var session = require('express-session')
+// mongoose.connect('mongodb://localhost/quoting');
 
-mongoose.connect('mongodb://localhost/quoting');
+// var QuoteSchema = new mongoose.Schema({
+//     name : {type: String, required: true, minlength: 1},
+//     quote: {type: String, required: true, minlength: 5}
+// }, {timestamps: true});
 
-var QuoteSchema = new mongoose.Schema({
-    name : {type: String, required: true, minlength: 1},
-    quote: {type: String, required: true, minlength: 5}
-}, {timestamps: true});
+// mongoose.model('Quote', QuoteSchema);
 
-mongoose.model('Quote', QuoteSchema);
+// var Quote = mongoose.model('Quote');
 
-var Quote = mongoose.model('Quote');
-
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,38 +28,8 @@ app.set('views', path.join(__dirname, './views'));
 
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res){
-    res.render('index');
-})
-
-
-app.post('/quotes', function(req, res){
-    console.log("POST DATA", req.body);
-
-    var quote = new Quote({name: req.body.name, quote: req.body.quote});
-
-    quote.save(function(err){
-
-        if (err){
-            console.log('somehting went wrong');
-
-            res.redirect('/');
-        }
-            else{
-                console.log('successfully added a quote!');
-                res.redirect('/quotes')
-            }
-        }) 
-})
-
-app.get('/quotes',function(req,res){
-    Quote.find({}, function(err, quotes){
-        if (err){
-            console.log(err);
-        }
-    res.render('quotes',{quotes: quotes}); 
-    })
-})
+require('./server/config/database')
+require('./server/config/routes.js')(app);
 
 app.listen(8000, function(){
     console.log('listening on port 8000');

@@ -10,7 +10,7 @@
 
     <fieldset>
         <h1>Here are the awesome quotes:</h1>
-        <% for ( var quote in quotes {%>
+        <% for ( var quote of quotes) {%>
             <h3>Name: <%= quote.name %></h3>
             <p>Quote: <%= quote.quote %></p>
         <%}
