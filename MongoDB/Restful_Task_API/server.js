@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/task');
 
+app.use(express.static( __dirname + '/public/dist/public' ));
+
 //schema
 
 var TaskSchema = new mongoose.Schema({
