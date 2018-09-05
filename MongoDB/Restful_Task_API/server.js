@@ -3,11 +3,9 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-
+app.use(express.static( __dirname + '/public/dist/public' ));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/task');
-
-app.use(express.static( __dirname + '/public/dist/public' ));
 
 //schema
 
